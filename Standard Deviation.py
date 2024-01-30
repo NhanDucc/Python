@@ -13,8 +13,9 @@ print(f"Mean: {M}")
 
 S1 = 0
 for i in list:
-    x = i - M
-    x = x*x
-    S1 += x
+    S1 = sum((i - M)**2 for i in list)
+    # x = i - M
+    # x = x*x
+    # S1 += x
 Sd = math.sqrt((1/(n-1))*S1)
 print(f"Standard deviation: {Sd}")
