@@ -1,9 +1,9 @@
-def find_gcd(a, b):
+def find_gcd(a, b):        # math.gcd
     while b != 0:
         a, b = b, a % b
     return a
 
-def find_lcm(a, b):
+def find_lcm(a, b):        # math.lcm
     return (a * b) // find_gcd(a, b)
 
 if __name__ == '__main__':
