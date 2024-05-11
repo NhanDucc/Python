@@ -12,3 +12,6 @@ if __name__ == '__main__':
     
     print("Greatest common divisor of", num_1, "and", num_2, "is", find_gcd(num_1, num_2))
     print("Least common multiple of", num_1, "and", num_2, "is", find_lcm(num_1, num_2))
+
+    # a, b, c = 10, 20, 35
+    # print(find_gcd(find_gcd(a, b), c))
