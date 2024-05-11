@@ -15,3 +15,4 @@ if __name__ == '__main__':
 
     # a, b, c = 10, 20, 35
     # print(find_gcd(find_gcd(a, b), c))
+    # print(find_lcm(find_lcm(a, b), c))
