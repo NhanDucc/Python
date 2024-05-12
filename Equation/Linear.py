@@ -3,9 +3,6 @@ import numpy as np
 
 class Linear:
     def __init__(self, a, b):
-        if a == 0:
-            print("The value of a cannot be zero")
-            quit()
         self.a = a
         self.b = b
     
@@ -25,7 +22,7 @@ class Linear:
                     print("Invalid input! Please enter a number.")
     
     def find_root(self):
-        return -self.b / self.a
+        return f"The equation has one root: {-self.b / self.a:.2f}"
     
     def evaluate(self, x0):
         return self.a * x0 + self.b
@@ -57,12 +54,12 @@ if __name__ == "__main__":
         print("2. Evaluate the value of the linear equation")
         print("3. Plot the graph of the linear equation")
         print("4. Exit")
-        option = int(input("Your option: "))
+        option = Linear.get_input("Your option: ")
         
         match option:
             case 1:
                 root = Linear(a, b).find_root()
-                print(f"The above equation has one root: {root:.2f}")
+                print(root)
                 break
             
             case 2:
