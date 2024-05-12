@@ -1,8 +1,3 @@
-# Chưa phân biệt được nghiệm bội và nghiệm duy nhất
-# Chưa tính được khi delta = 0
-# 2 nghiệm
-
-
 import math
 import matplotlib.pyplot as plt
 import numpy as np
@@ -30,25 +25,42 @@ class Tertiary:
                     print("Invalid input! Please enter a number.")
     
     def find_root(self):
-        delta = self.b **2 - 3 * self.a * self.c
-        k = (9 * self.a * self.b * self.c - 2 * self.b **3 - 27 * self.a **2 * self.d) / (2 * math.sqrt(abs(delta) **3))
-        if delta != 0:
+        delta = self.b **2 - 3*self.a*self.c
+        if delta == 0:
+            if self.b**3 - 27*a**2*d == 0:
+                x = -self.b / (3*self.a)
+                return f"The equation has a triple root: {x:.2f}"
+            else:
+                x = (-self.b + (self.b**3 - 27*a**2*d)**(1/3)) / (3*self.a)
+                return f"The equation has only one root: {x:.2f}"
+        else:
+            k = (9*self.a*self.b*self.c - 2*self.b**3 - 27*self.a**2*self.d) / (2*math.sqrt(abs(delta)**3))
             if delta > 0:
                 if abs(k) <= 1:
-                    return (2 * math.sqrt(delta) * math.cos(math.acos(k) / 3) - self.b) / (3 * self.a), (2 * math.sqrt(delta) * math.cos(math.acos(k) / 3 - (2 * math.pi) / 3) - self.b) / (3 * self.a), (2 * math.sqrt(delta) * math.cos(math.acos(k) / 3 + (2 * math.pi) / 3) - self.b) / (3 * self.a)
+                    x1 = (2*math.sqrt(delta)*math.cos(math.acos(k)/3) - self.b)/(3*self.a)
+                    x2 = (2*math.sqrt(delta)*math.cos(math.acos(k)/3 - 2*math.pi/3) - self.b)/(3*self.a)
+                    x3 = (2*math.sqrt(delta)*math.cos(math.acos(k)/3 + 2*math.pi/3) - self.b)/(3*self.a)
+                    if x2 == x3 != x1:
+                        return f"The equation has simple root: {x1:.2f} and double root: {x2:.2f}"
+                    elif x1 == x2 != x3:
+                        return f"The equation has simple root: {x3:.2f} and double root: {x1:.2f}"
+                    elif x1 == x3 != x2:
+                        return f"The equation has simple root: {x2:.2f} and double root: {x1:.2f}"
+                    elif x1 != x2 != x3:
+                        return f"The equation has three roots: {x1:.2f}, {x2:.2f}, {x3:.2f}"
                 else:
-                    return (math.sqrt(delta) * abs(k)) / (3 * self.a * k) * ((abs(k) + math.sqrt(k **2 - 1)) **(1 / 3) + (abs(k) - math.sqrt(k **2 - 1)) **(1 / 3)) - self.b / (3 * self.a)
+                    x = ((math.sqrt(delta)*abs(k))/(3*self.a*k))*((abs(k)+math.sqrt(k**2-1))**(1/3) + (abs(k)-math.sqrt(k**2-1))**(1/3))
+                    return f"The equation has only one root: {x:.2f}"
             else:
-                return ((math.sqrt(abs(delta))) / (3 * self.a)) * ((abs(k) + math.sqrt(k ** 2 - 1)) **(1 / 3) + (abs(k) - math.sqrt(k **2 - 1)) **(1 / 3)) - self.b / (3 * self.a)
-        else:
-            return (-self.b + (self.b ** 3 - 27 * self.a ** 2 * self.d) ** (1 / 3)) / (3 * self.a)
+                x = (math.sqrt(abs(delta))/(3*self.a))*((abs(k)+math.sqrt(k**2-1))**(1/3) + (abs(k)-math.sqrt(k**2-1))**(1/3)) - (self.b/(3*self.a))
+                return f"The equation has only one root: {x:.2f}"
     
     def evaluate(self, x0):
-        return self.a * (x0 **3) + self.b * (x0 **2) + self.c * x0 + self.d
+        return self.a*(x0 **3) + self.b*(x0 **2) + self.c*x0 + self.d
     
     def plot(self):
         x = np.linspace(-10, 10, 400)
-        y = self.a * x**3 + self.b * x**2 + self.c * x + self.d
+        y = self.a*x**3 + self.b*x**2 + self.c*x + self.d
         plt.plot(x, y)
         plt.title('Graph of the tertiary equation')
         plt.xlabel('x')
@@ -60,6 +72,7 @@ class Tertiary:
     
     def __str__(self):
         return f"F(x) = {self.a}x^3 + {self.b}x^2 + {self.c}x + {self.d}"
+    
 if __name__ == "__main__":
     print("Enter a, b, c and d for the tertiary equation:")
     a = Tertiary.get_input("a = ")
@@ -74,20 +87,12 @@ if __name__ == "__main__":
         print("2. Evaluate the value of the tertiary equation")
         print("3. Plot the graph of the tertiary equation")
         print("4. Exit")
-        option = int(input("Your option: "))
+        option = Tertiary.get_input("Your option: ")
         
         match option:
             case 1:
                 root = Tertiary(a, b, c, d).find_root()
-                if root is None:
-                    print("The above equation has no real root!")
-                elif isinstance(root, tuple):
-                    if len(root) == 3:
-                        print(f"The above equation has three roots: {root[0]:.2f}, {root[1]:.2f}, {root[2]:.2f}")
-                    elif len(root) == 2:
-                        print(f"The above equation has two roots: {root[0]:.2f}, {root[1]:.2f}")
-                else:
-                    print(f"The above equation has one root: {root:.2f}")
+                print(root)
                 break
             
             case 2:
