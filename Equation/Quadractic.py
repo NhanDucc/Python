@@ -27,11 +27,14 @@ class Quadratic:
         delta = self.b * self.b - 4 * self.a * self.c
         if delta != 0:
             if delta > 0:
-                return (-self.b + math.sqrt(delta)) / self.a, (-self.b - math.sqrt(delta)) / self.a
+                x1 = (-self.b + math.sqrt(delta)) / (2*self.a)
+                x2 = (-self.b - math.sqrt(delta)) / (2*self.a)
+                return f"The equation has two distinct roots: {x1:.2f} and {x2:.2f}"
             else:
-                return None
+                return f"The equation has no root"
         else:
-            return -self.b / 2
+            x = -self.b / (2*self.a)
+            return f"The equation has double root: {x:.2f}"
     
     def evaluate(self, x0):
         return self.a * (x0**2) + self.b * x0 + self.c   
@@ -64,17 +67,12 @@ if __name__ == "__main__":
         print("2. Evaluate the value of the quadratic equation")
         print("3. Plot the graph of the quadratic equation")
         print("4. Exit")
-        option = int(input("Your option: "))
+        option = Quadratic.get_input("Your option: ")
         
         match option:
             case 1:
                 root = Quadratic(a, b, c).find_root()
-                if root is None:
-                    print("The above equation has no root")
-                elif isinstance(root, tuple):
-                    print(f"The above equation has two distinct roots: {root[0]:.2f} and {root[1]:.2f}")
-                else:
-                    print(f"The above equation has double root: {root:.2f}")
+                print(root)
                 break
             
             case 2:
